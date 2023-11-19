@@ -121,6 +121,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <>
             <div key={comment.id} className="text-sm flex items-start gap-4">
               <Avatar className="w-10 h-10 border">
+                {/* @ts-ignore */}
                 <AvatarImage alt="@username1" src={comment.author.image} />
                 <AvatarFallback>U1</AvatarFallback>
               </Avatar>
