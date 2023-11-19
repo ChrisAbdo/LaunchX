@@ -112,7 +112,7 @@ export default async function Page({
         </div>
 
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6 mt-4">
-          {filteredPosts.map((post) => (
+          {filteredPosts.map((post: any) => (
             <div
               key={post.id}
               className="bg-background rounded-none overflow-hidden"
