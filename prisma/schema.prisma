@@ -47,6 +47,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
+  Comment       Comment[]
 }
 
 model VerificationToken {
@@ -58,16 +59,28 @@ model VerificationToken {
 }
 
 model Post {
-  id          String   @id @default(cuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  published   Boolean  @default(false)
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  published   Boolean   @default(false)
   title       String
   description String
   githubUrl   String
   siteUrl     String
   framework   String
   coverImg    String
-  author      User     @relation(fields: [authorId], references: [id])
+  author      User      @relation(fields: [authorId], references: [id])
   authorId    String
+  Comment     Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  body      String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
 }

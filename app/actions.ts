@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/auth-options";
 import { prisma } from "@/prisma/db";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 let sessionCache: any = null;
 
@@ -42,5 +43,28 @@ export async function addPost(formData: FormData) {
       error: error.message,
     };
   }
-  revalidatePath("/projects");
+  revalidatePath("/");
+  redirect("/");
+}
+
+export async function addComment(formData: FormData) {
+  const session = await getSession();
+  const postId = String(formData.get("postId"));
+  const body = String(formData.get("body"));
+  const authorId = session?.user.id;
+
+  try {
+    await prisma.comment.create({
+      data: {
+        postId,
+        body,
+        authorId,
+      },
+    });
+  } catch (error: any) {
+    return {
+      error: error.message,
+    };
+  }
+  revalidatePath(`/project/${postId}`);
 }

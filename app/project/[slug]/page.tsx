@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 import { GitHubLogoIcon, OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { Textarea } from "@/components/ui/textarea";
+
+import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
+import CommentForm from "@/components/upload/comment";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const project = await prisma.post.findUnique({
@@ -16,6 +18,18 @@ export default async function Page({ params }: { params: { slug: string } }) {
     },
     include: {
       author: true,
+    },
+  });
+
+  const comments = await prisma.comment.findMany({
+    where: {
+      postId: params.slug,
+    },
+    include: {
+      author: true,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 
@@ -76,10 +90,56 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
         <Separator className="mt-8" />
         <h1 className="text-xl font-light mt-4">Comments</h1>
-        <Textarea className="mt-2" placeholder="Leave a comment..." />
+        {/* COMMENT FORM */}
+        {/* <form
+          //   action={addComment}
+          action={async (formData: FormData) => {
+            const result = await addComment(formData);
+            if (result?.error) {
+              toast.error("Something went wrong. Please try again.");
+            } else {
+              toast.success("Comment added successfully!");
+            }
+          }}
+          className="flex flex-col items-end"
+        >
+          <Textarea
+            id="body"
+            name="body"
+            className="mt-2 w-full"
+            placeholder="Leave a comment..."
+          />
+          <input type="hidden" name="postId" value={project?.id} />
+          <Button className="mt-2" variant="outline" type="submit">
+            Submit
+          </Button>
+        </form> */}
+        <CommentForm project={project} />
 
         {/* COMMENTS */}
-        <p>comments will go here</p>
+        {comments.map((comment) => (
+          <>
+            <div key={comment.id} className="text-sm flex items-start gap-4">
+              <Avatar className="w-10 h-10 border">
+                <AvatarImage alt="@username1" src={comment.author.image} />
+                <AvatarFallback>U1</AvatarFallback>
+              </Avatar>
+              <div className="grid gap-1.5">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="font-semibold">@{comment.author.name}</div>
+
+                  <time>
+                    {new Date(comment.createdAt).toLocaleDateString()} at{" "}
+                    {new Date(comment.createdAt).toLocaleTimeString()}
+                  </time>
+                </div>
+                <div>{comment.body}</div>
+              </div>
+            </div>
+
+            <Separator className="my-4" />
+          </>
+        ))}
       </div>
     </div>
   );
