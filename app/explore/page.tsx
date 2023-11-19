@@ -25,7 +25,7 @@ export default async function Page({
     },
   });
 
-  // Filter posts based on the selected framework (if any)
+  // Filter posts based on the selected framework
   const filteredPosts = frameworkQuery
     ? //   @ts-ignore
       allPosts.filter((post) => post.framework === frameworkQuery)
