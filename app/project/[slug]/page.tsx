@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { GitHubLogoIcon, OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const project = await prisma.post.findUnique({
@@ -58,18 +59,27 @@ export default async function Page({ params }: { params: { slug: string } }) {
             Framework: {project?.framework}
           </p> */}
           <Button asChild>
+            {/* @ts-ignore */}
             <Link href={project?.githubUrl} target="_blank">
               <GitHubLogoIcon className="h-5 w-5 mr-2" />
               View Repository
             </Link>
           </Button>
           <Button variant="outline" asChild>
+            {/* @ts-ignore */}
             <Link href={project?.siteUrl} target="_blank">
               <OpenInNewWindowIcon className="h-5 w-5 mr-2" />
               View Site
             </Link>
           </Button>
         </div>
+
+        <Separator className="mt-8" />
+        <h1 className="text-xl font-light mt-4">Comments</h1>
+        <Textarea className="mt-2" placeholder="Leave a comment..." />
+
+        {/* COMMENTS */}
+        <p>comments will go here</p>
       </div>
     </div>
   );
