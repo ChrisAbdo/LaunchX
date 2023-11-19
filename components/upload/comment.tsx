@@ -27,7 +27,7 @@ export default function CommentForm({ project }: { project: any }) {
         placeholder="Leave a comment..."
       />
       <input type="hidden" name="postId" value={project?.id} />
-      <Button className="mt-2" variant="outline" type="submit">
+      <Button className="mt-2" variant="secondary" type="submit">
         Submit
       </Button>
     </form>

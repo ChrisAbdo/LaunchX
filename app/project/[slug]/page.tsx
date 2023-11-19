@@ -119,13 +119,16 @@ export default async function Page({ params }: { params: { slug: string } }) {
         {/* COMMENTS */}
         {comments.map((comment) => (
           <>
-            <div key={comment.id} className="text-sm flex items-start gap-4">
+            <div
+              key={comment.id}
+              className="text-sm flex items-start gap-4 mt-4"
+            >
               <Avatar className="w-10 h-10 border">
                 {/* @ts-ignore */}
                 <AvatarImage alt="@username1" src={comment.author.image} />
                 <AvatarFallback>U1</AvatarFallback>
               </Avatar>
-              <div className="grid gap-1.5">
+              <div className="w-full">
                 <div className="flex items-center justify-between gap-2">
                   <div className="font-semibold">@{comment.author.name}</div>
 

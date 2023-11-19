@@ -41,7 +41,7 @@ export default async function Page({
       <GridPattern
         className={cn(
           "[mask-image:radial-gradient(900px_circle_at_center,white,transparent)]",
-          "inset-x-0 inset-y-[-100%] h-[120%] skew-y-12"
+          "inset-x-0 inset-y-[-100%] sm:h-[120%] h-[150%] skew-y-12"
         )}
       />
       <div>
