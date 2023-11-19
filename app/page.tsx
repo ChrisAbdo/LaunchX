@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import FrameworkBadges from "@/components/explore/framework-badges";
 import { Skeleton } from "@/components/ui/skeleton";
+import NumberTicker from "@/components/number-ticker";
 
 export default async function Page({
   searchParams,
@@ -51,8 +52,8 @@ export default async function Page({
               LaunchX
             </h1>
             <p className="text-center text-2xl font-light tracking-tight md:text-left">
-              A community run by builders, for builders. Find new projects to
-              work on, or share your own.
+              A community for open source builders. Find new projects to work
+              on, or share your own.
             </p>
 
             <div className="flex flex-col items-center gap-3 md:flex-row">
@@ -60,7 +61,8 @@ export default async function Page({
                 <Link href="/upload">Upload a Project Now</Link>
               </Button>
               <p className="text-center text-sm text-muted-foreground">
-                {allPosts.length} projects uploaded
+                {/* {allPosts.length} projects uploaded */}
+                <NumberTicker value={allPosts.length} />
               </p>
             </div>
           </div>
