@@ -44,7 +44,6 @@ export default async function Page({
           "inset-x-0 inset-y-[-100%] h-[120%] skew-y-12"
         )}
       />
-      {frameworkQuery}
       <div>
         <div className="mt-2 grid items-end justify-items-center gap-4 md:grid-cols-2 md:justify-items-start">
           <div className="grid max-w-lg content-start justify-items-center gap-3.5 py-16 md:max-w-md md:justify-items-start md:py-0">

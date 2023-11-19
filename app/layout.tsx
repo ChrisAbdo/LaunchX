@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-provider";
 import { AuthProvider } from "@/lib/auth/auth-provider";
 import Navbar from "@/components/layout/navbar";
-import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { Toaster } from "sonner";
 import { TailwindIndicator } from "@/components/layout/tw-indicator";
