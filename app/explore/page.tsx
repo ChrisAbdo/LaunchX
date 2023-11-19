@@ -27,7 +27,8 @@ export default async function Page({
 
   // Filter posts based on the selected framework (if any)
   const filteredPosts = frameworkQuery
-    ? allPosts.filter((post) => post.framework === frameworkQuery)
+    ? //   @ts-ignore
+      allPosts.filter((post) => post.framework === frameworkQuery)
     : allPosts;
 
   // Fetch all unique frameworks
@@ -46,10 +47,10 @@ export default async function Page({
       <div>
         <div className="mt-2 grid items-end justify-items-center gap-4 md:grid-cols-2 md:justify-items-start">
           <div className="grid max-w-lg content-start justify-items-center gap-3.5 py-16 md:max-w-md md:justify-items-start md:py-0">
-            <h1 className="overflow-auto text-5xl font-light leading-tight tracking-tight ">
+            <h1 className="overflow-auto text-5xl font-normal leading-tight tracking-tight ">
               LaunchX
             </h1>
-            <p className="text-center text-2xl font-extralight tracking-tight md:text-left">
+            <p className="text-center text-2xl font-light tracking-tight md:text-left">
               A community run by builders, for builders. Find new projects to
               work on, or share your own.
             </p>
@@ -58,7 +59,7 @@ export default async function Page({
               <Button asChild>
                 <Link href="/upload">Upload a Project Now</Link>
               </Button>
-              <p className="text-center text-sm opacity-40">
+              <p className="text-center text-sm text-muted-foreground">
                 {allPosts.length} projects uploaded
               </p>
             </div>
