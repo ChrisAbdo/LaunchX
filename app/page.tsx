@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import FrameworkBadges from "@/components/explore/framework-badges";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default async function Page({
   searchParams,
@@ -40,7 +41,7 @@ export default async function Page({
       <GridPattern
         className={cn(
           "[mask-image:radial-gradient(900px_circle_at_center,white,transparent)]",
-          "inset-x-0 inset-y-[-100%] h-[150%] skew-y-12"
+          "inset-x-0 inset-y-[-100%] h-[120%] skew-y-12"
         )}
       />
       {frameworkQuery}
@@ -64,39 +65,6 @@ export default async function Page({
               </p>
             </div>
           </div>
-          <article className="grid w-full gap-2">
-            <div className="flex items-center justify-between">
-              <p className="text-sm opacity-40">N°989</p>
-              <a
-                className="border-black/20 bg-white text-black hover:border-black/40 active:border-black/20 active:bg-black/5 h-[24px] rounded-md px-1.5 text-sm tracking-tight inline-flex select-none items-center justify-center whitespace-nowrap border relative font-medium disabled:pointer-events-none"
-                target="_blank"
-                rel="noopener nofollow"
-                href="https://lusion.co?ref=godly"
-              >
-                <span className="flex items-center gap-1.5">Open</span>
-              </a>
-            </div>
-            <a className="group relative block" href="/website/989-lusion">
-              <div className="relative w-full">
-                <video
-                  className="ease block w-full transition duration-200"
-                  width="640"
-                  height="400"
-                >
-                  <source
-                    src="https://video.godly.website/video/upload/w_640/q_70/godly/recordings/grkx1rufffkxez4qcrlu.webm"
-                    type="video/webm"
-                  />
-                  <source
-                    src="https://video.godly.website/video/upload/w_640/q_70/godly/recordings/grkx1rufffkxez4qcrlu.mp4"
-                    type="video/mp4"
-                  />
-                </video>
-              </div>
-              <div className="ease pointer-events-none absolute inset-0 border border-black/5 transition duration-150 group-hover:bg-black/20"></div>
-            </a>
-            <h1 className="truncate font-medium">Lusion</h1>
-          </article>
         </div>
 
         <Separator className="mt-8" />
@@ -115,7 +83,11 @@ export default async function Page({
             >
               <div className="flex justify-between items-center mb-2">
                 <p className="text-xs font-extralight">*{post.framework}</p>
-                <Badge variant="outline">View</Badge>
+                <Link href={`/project/${post.id}`}>
+                  <Badge className="hover:bg-muted" variant="outline">
+                    View
+                  </Badge>
+                </Link>
               </div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <Image
@@ -128,10 +100,12 @@ export default async function Page({
                   objectFit: "cover",
                 }}
                 width="400"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mPsqAcAAZUBCZuIJhEAAAAASUVORK5CYII="
               />
               <div className="flex justify-between items-center mt-2">
-                <h3 className="font-semibold text-md">{post.title}</h3>
-                <p className="text-sm text-muted-foreground">
+                <h3 className="font-light text-md">{post.title}</h3>
+                <p className="font-extralight text-sm text-muted-foreground">
                   {post.author.name}
                 </p>
               </div>

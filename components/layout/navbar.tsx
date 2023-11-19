@@ -35,17 +35,6 @@ export default function MainNav() {
           </Link>
           <div className="hidden md:flex md:gap-x-12">
             <Link
-              href="/explore"
-              className={cn(
-                "transition-colors hover:text-foreground/80 text-sm font-medium",
-                pathname?.startsWith("/explore")
-                  ? "text-foreground"
-                  : "text-foreground/60"
-              )}
-            >
-              Explore
-            </Link>
-            <Link
               href="/upload"
               className={cn(
                 "transition-colors hover:text-foreground/80 text-sm font-medium",
@@ -86,9 +75,8 @@ export default function MainNav() {
               Log in
             </Button>
           )}
-          <div className="hidden md:flex">
-            <ModeToggle />
-          </div>
+
+          <ModeToggle />
         </div>
       </nav>
     </header>

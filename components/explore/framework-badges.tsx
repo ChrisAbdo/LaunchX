@@ -14,10 +14,10 @@ export default function FrameworkBadges({ framework }: { framework: string }) {
   const handleClick = () => {
     if (search === framework) {
       // If the current framework is already selected, remove the query from the URL
-      router.push("/explore");
+      router.push("/");
     } else {
       // Otherwise, navigate to the URL with the framework as a query parameter
-      router.push(`/explore?framework=${framework}`);
+      router.push(`/?framework=${framework}`);
     }
   };
 

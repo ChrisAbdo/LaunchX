@@ -28,7 +28,7 @@ export function LoginButton({
         signIn("github", { callbackUrl: `/` });
       }}
       disabled={isLoading}
-      className={cn(className)}
+      className="w-full"
       {...props}
     >
       {isLoading ? (
