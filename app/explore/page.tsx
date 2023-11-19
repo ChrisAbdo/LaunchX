@@ -82,10 +82,6 @@ export default async function Page({
                   className="ease block w-full transition duration-200"
                   width="640"
                   height="400"
-                  playsinline=""
-                  autoplay=""
-                  //   @ts-ignore
-                  loop=""
                 >
                   <source
                     src="https://video.godly.website/video/upload/w_640/q_70/godly/recordings/grkx1rufffkxez4qcrlu.webm"
