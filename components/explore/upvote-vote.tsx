@@ -51,7 +51,7 @@ export default function UpvotePost({
         <Badge
           variant="secondary"
           onClick={handleUpvote}
-          className="cursor-pointer"
+          className="cursor-pointer tabular-nums"
         >
           {post._count.PostUpvote} <ArrowUpIcon className="h-4 w-4" />
         </Badge>
@@ -59,7 +59,7 @@ export default function UpvotePost({
         <Badge
           variant="outline"
           onClick={handleUpvote}
-          className="hover:bg-muted cursor-pointer"
+          className="hover:bg-muted cursor-pointer tabular-nums"
         >
           {post._count.PostUpvote}
           <ArrowUpIcon className="h-4 w-4" />
