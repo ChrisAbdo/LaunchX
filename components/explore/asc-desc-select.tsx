@@ -28,6 +28,14 @@ export default function UpvoteDirectionSelector() {
   return (
     <Select
       onValueChange={(value) => {
+        // if value is default, remove the query from the URL
+        if (value === "default") {
+          const params = new URLSearchParams(searchParams);
+          params.delete("sort");
+          router.push("?" + params.toString());
+          return;
+        }
+
         router.push("?" + createQueryString("sort", value));
       }}
     >

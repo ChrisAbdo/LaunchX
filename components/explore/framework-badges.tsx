@@ -30,7 +30,7 @@ export default function FrameworkBadges({ framework }: { framework: string }) {
         key={framework}
         variant={badgeVariant}
         size="sm"
-        className="cursor-pointer"
+        className="cursor-pointer font-light"
       >
         {framework}
       </Button>

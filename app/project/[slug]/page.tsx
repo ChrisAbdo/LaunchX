@@ -64,9 +64,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
           </div>
 
           <div>
-            <p className="text-sm font-normal">
-              uploaded by {project?.author?.name}
-            </p>
+            <Link
+              href={`/profile/${project?.author?.id}`}
+              className="text-sm font-light"
+            >
+              <span className="text-muted-foreground">uploaded by</span>{" "}
+              {project?.author?.name}
+            </Link>
           </div>
         </div>
         <p className="mt-2 text-foreground text-xl leading-8">

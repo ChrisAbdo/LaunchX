@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import FrameworkBadges from "@/components/explore/framework-badges";
-import { Skeleton } from "@/components/ui/skeleton";
 import NumberTicker from "@/components/number-ticker";
 import UpvotePost from "@/components/explore/upvote-vote";
 import UpvoteDirectionSelector from "@/components/explore/asc-desc-select";
@@ -46,13 +45,10 @@ export default async function Page({
     },
   });
 
-  // Filter posts based on the selected framework
   const filteredPosts = frameworkQuery
-    ? //   @ts-ignore
-      allPosts.filter((post) => post.framework === frameworkQuery)
+    ? allPosts.filter((post) => post.framework === frameworkQuery)
     : allPosts;
 
-  // Fetch all unique frameworks
   // @ts-ignore
   const allFrameworks = [...new Set(allPosts.map((post) => post.framework))];
   allFrameworks.sort();
