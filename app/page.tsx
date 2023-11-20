@@ -10,6 +10,8 @@ import Image from "next/image";
 import FrameworkBadges from "@/components/explore/framework-badges";
 import { Skeleton } from "@/components/ui/skeleton";
 import NumberTicker from "@/components/number-ticker";
+import UpvotePost from "@/components/explore/upvote-vote";
+import UpvoteDirectionSelector from "@/components/explore/asc-desc-select";
 
 export default async function Page({
   searchParams,
@@ -17,13 +19,25 @@ export default async function Page({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const frameworkQuery = searchParams["framework"];
+  const sortQuery = searchParams["sort"];
 
   const allPosts = await prisma.post.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
+    orderBy: sortQuery
+      ? {
+          PostUpvote: {
+            _count: sortQuery === "ascending" ? "asc" : "desc",
+          },
+        }
+      : {
+          createdAt: "desc",
+        },
     include: {
       author: true,
+      _count: {
+        select: {
+          PostUpvote: true,
+        },
+      },
     },
   });
 
@@ -36,6 +50,7 @@ export default async function Page({
   // Fetch all unique frameworks
   // @ts-ignore
   const allFrameworks = [...new Set(allPosts.map((post) => post.framework))];
+  allFrameworks.sort();
 
   return (
     <>
@@ -61,16 +76,17 @@ export default async function Page({
                 <Link href="/upload">Upload a Project Now</Link>
               </Button>
               <p className="text-center text-sm text-muted-foreground">
-                {/* {allPosts.length} projects uploaded */}
                 <NumberTicker value={allPosts.length} />
               </p>
             </div>
           </div>
         </div>
 
-        <Separator className="mt-8" />
+        <Separator className="mt-6" />
 
-        <div className="mt-6 flex space-x-2 bg-background">
+        <div className="mt-6 flex items-center space-x-2 bg-background">
+          <UpvoteDirectionSelector />
+          <Separator orientation="vertical" className="h-8" />
           {allFrameworks.map((framework) => (
             <FrameworkBadges key={framework} framework={framework} />
           ))}
@@ -83,7 +99,8 @@ export default async function Page({
               className="bg-background rounded-none overflow-hidden"
             >
               <div className="flex justify-between items-center mb-2">
-                <p className="text-xs font-extralight">*{post.framework}</p>
+                {/* <p className="text-xs font-extralight">*{post.framework}</p> */}
+                <UpvotePost post={post} />
                 <Link href={`/project/${post.id}`}>
                   <Badge className="hover:bg-muted" variant="outline">
                     View
@@ -106,9 +123,12 @@ export default async function Page({
               />
               <div className="flex justify-between items-center mt-2">
                 <h3 className="font-light text-md">{post.title}</h3>
-                <p className="font-extralight text-sm text-muted-foreground">
+                <Link
+                  href={`/profile/${post.author.id}`}
+                  className="hover:underline font-extralight text-sm text-muted-foreground"
+                >
                   {post.author.name}
-                </p>
+                </Link>
               </div>
             </div>
           ))}

@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { Badge } from "../ui/badge";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "../ui/button";
 
 export default function FrameworkBadges({ framework }: { framework: string }) {
   const router = useRouter();
@@ -12,25 +12,28 @@ export default function FrameworkBadges({ framework }: { framework: string }) {
   const badgeVariant = search === framework ? "default" : "secondary";
 
   const handleClick = () => {
+    const params = new URLSearchParams(searchParams);
     if (search === framework) {
       // If the current framework is already selected, remove the query from the URL
-      router.push("/");
+      params.delete("framework");
     } else {
       // Otherwise, navigate to the URL with the framework as a query parameter
-      router.push(`/?framework=${framework}`);
+      params.set("framework", framework);
     }
+    router.push("?" + params.toString());
   };
 
   return (
     <>
-      <Badge
+      <Button
         onClick={handleClick}
         key={framework}
         variant={badgeVariant}
+        size="sm"
         className="cursor-pointer"
       >
         {framework}
-      </Badge>
+      </Button>
     </>
   );
 }

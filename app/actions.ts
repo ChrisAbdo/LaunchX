@@ -68,3 +68,84 @@ export async function addComment(formData: FormData) {
   }
   revalidatePath(`/project/${postId}`);
 }
+
+export async function upvotePost(postId: string) {
+  // Try to get the session
+  const session = await getSession();
+
+  // If there's no session, the user is not logged in
+  if (!session) {
+    throw new Error("You must be logged in to upvote a post.");
+  }
+
+  const userId = session.user.id; // Assuming session structure contains user object with an id
+
+  try {
+    // Check if the user already upvoted the post
+    const existingUpvote = await prisma.postUpvote.findFirst({
+      where: {
+        postId: postId,
+        userId: userId,
+      },
+    });
+
+    if (existingUpvote) {
+      // If the user already upvoted, remove the upvote
+      await prisma.postUpvote.delete({
+        where: {
+          id: existingUpvote.id, // Use the appropriate unique identifier for your upvote record
+        },
+      });
+
+      // Return a message indicating the upvote was removed
+      revalidatePath(`/projects/project/${postId}`);
+      return { message: "Upvote removed successfully." };
+    } else {
+      // If not, create a new upvote in the database
+      await prisma.postUpvote.create({
+        data: {
+          postId: postId,
+          userId: userId,
+        },
+      });
+
+      // Return a message indicating the upvote was successful
+      revalidatePath(`/projects/project/${postId}`);
+      return { message: "Successfully upvoted the post." };
+    }
+  } catch (error: any) {
+    // Handle or throw errors from the database
+    return {
+      error: error.message,
+    };
+  }
+}
+
+export async function checkIfUserUpvoted(postId: string) {
+  // Try to get the session
+  const session = await getSession();
+
+  // If there's no session, the user is not logged in; return false since we can't check the upvote status
+  if (!session) {
+    return false;
+  }
+
+  const userId = session.user.id; // Assuming session structure contains user object with an id
+
+  try {
+    // Check if the user already upvoted the post
+    const existingUpvote = await prisma.postUpvote.findFirst({
+      where: {
+        postId: postId,
+        userId: userId,
+      },
+    });
+
+    // If there is an existing upvote, return true indicating this user has upvoted the post
+    return Boolean(existingUpvote);
+  } catch (error: any) {
+    // Log the error and return false as we couldn't verify the upvote status
+    console.error("An error occurred while checking the upvote status:", error);
+    return false;
+  }
+}

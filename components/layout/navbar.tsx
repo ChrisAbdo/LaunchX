@@ -45,17 +45,20 @@ export default function MainNav() {
             >
               Upload
             </Link>
-            <Link
-              href="/about"
-              className={cn(
-                "transition-colors hover:text-foreground/80 text-sm font-light",
-                pathname?.startsWith("/about")
-                  ? "text-foreground"
-                  : "text-foreground/60"
-              )}
-            >
-              About
-            </Link>
+
+            {session ? (
+              <Link
+                href="/profile"
+                className={cn(
+                  "transition-colors hover:text-foreground/80 text-sm font-light",
+                  pathname === "/profile"
+                    ? "text-foreground"
+                    : "text-foreground/60"
+                )}
+              >
+                Profile
+              </Link>
+            ) : null}
           </div>
         </div>
         <div className="flex lg:hidden">
