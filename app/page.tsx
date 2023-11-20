@@ -14,6 +14,7 @@ import UpvotePost from "@/components/explore/upvote-vote";
 import UpvoteDirectionSelector from "@/components/explore/asc-desc-select";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth/auth-options";
+import ExpandingArrow from "@/components/layout/expanding-arrow";
 
 export default async function Page({
   searchParams,
@@ -76,8 +77,11 @@ export default async function Page({
             </p>
 
             <div className="flex flex-col items-center gap-3 md:flex-row">
-              <Button asChild>
-                <Link href="/upload">Upload a Project Now</Link>
+              <Button asChild className="pr-6 group">
+                <Link href="/upload">
+                  Upload a Project Now
+                  <ExpandingArrow className="h-4 w-4" />
+                </Link>
               </Button>
               <p className="text-center text-sm text-muted-foreground">
                 <NumberTicker value={allPosts.length} />
@@ -86,7 +90,7 @@ export default async function Page({
           </div>
         </div>
 
-        <Separator className="mt-6" />
+        <Separator className="mt-2 md:mt-6" />
 
         <div className="mt-6 flex items-center space-x-2 bg-background">
           <UpvoteDirectionSelector />
