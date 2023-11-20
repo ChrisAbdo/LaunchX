@@ -116,16 +116,14 @@ export default async function Page({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <Image
                 alt="Item 1"
-                className="object-cover w-full h-48 border rounded-none"
+                className="object-cover w-full h-48 border rounded-none aspect-[1/1]"
                 height="400"
                 src={post.coverImg}
-                style={{
-                  aspectRatio: "1/1",
-                  objectFit: "cover",
-                }}
                 width="400"
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mPsqAcAAZUBCZuIJhEAAAAASUVORK5CYII="
+                loading="lazy"
+                priority
               />
               <div className="flex justify-between items-center mt-2">
                 <h3 className="font-light text-md">{post.title}</h3>
