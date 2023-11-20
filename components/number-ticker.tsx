@@ -32,7 +32,10 @@ export default function NumberTicker({ value }: { value: number }) {
   return (
     <>
       {/* Set initial content of the span to 0 */}
-      <span ref={ref}>0</span> projects uploaded
+      <span className="tabular-nums" ref={ref}>
+        0
+      </span>{" "}
+      projects uploaded
     </>
   );
 }

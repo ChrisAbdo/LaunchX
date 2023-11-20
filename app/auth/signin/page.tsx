@@ -1,4 +1,5 @@
 import { LoginButton } from "@/components/auth/login-button";
+import { RocketIcon } from "@radix-ui/react-icons";
 
 export default async function SignInPage() {
   return (
@@ -8,12 +9,13 @@ export default async function SignInPage() {
     // </div>
     <div className="flex flex-col h-[calc(100vh-theme(spacing.16))] items-center justify-center py-10">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
+        {/* <img
           className="mx-auto h-10 w-auto"
           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
           alt="Your Company"
-        />
-        <h2 className="mt-10 text-center text-2xl font-light leading-9 tracking-tight text-gray-900">
+        /> */}
+        <RocketIcon className="mx-auto h-10 w-auto" />
+        <h2 className="mt-4 text-center text-2xl font-light leading-9 tracking-tight text-foreground">
           Welcome to LaunchX
         </h2>
         <p className="text-center">For builders, by builders.</p>
