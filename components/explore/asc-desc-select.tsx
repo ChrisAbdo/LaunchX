@@ -28,13 +28,7 @@ export default function UpvoteDirectionSelector() {
   return (
     <Select
       onValueChange={(value) => {
-        if (value === "default") {
-          const params = new URLSearchParams(searchParams);
-          params.delete("sort");
-          router.push("?" + params.toString());
-        } else {
-          router.push("?" + createQueryString("sort", value));
-        }
+        router.push("?" + createQueryString("sort", value));
       }}
     >
       <SelectTrigger className="w-[180px]">

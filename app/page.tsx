@@ -12,12 +12,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 import NumberTicker from "@/components/number-ticker";
 import UpvotePost from "@/components/explore/upvote-vote";
 import UpvoteDirectionSelector from "@/components/explore/asc-desc-select";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth/auth-options";
 
 export default async function Page({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const session = await getServerSession(authOptions);
+
   const frameworkQuery = searchParams["framework"];
   const sortQuery = searchParams["sort"];
 
@@ -100,7 +104,7 @@ export default async function Page({
             >
               <div className="flex justify-between items-center mb-2">
                 {/* <p className="text-xs font-extralight">*{post.framework}</p> */}
-                <UpvotePost post={post} />
+                <UpvotePost post={post} session={session} />
                 <Link href={`/project/${post.id}`}>
                   <Badge className="hover:bg-muted" variant="outline">
                     View

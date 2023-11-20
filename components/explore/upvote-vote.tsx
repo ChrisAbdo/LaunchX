@@ -6,7 +6,13 @@ import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { Badge } from "../ui/badge";
 
-export default function UpvotePost({ post }: { post: any }) {
+export default function UpvotePost({
+  post,
+  session,
+}: {
+  post: any;
+  session: any;
+}) {
   const [hasUpvoted, setHasUpvoted] = useState(false);
 
   useEffect(() => {
@@ -33,6 +39,9 @@ export default function UpvotePost({ post }: { post: any }) {
       }
     } catch (error) {
       toast.error("Something went wrong while upvoting the post");
+      if (!session) {
+        toast.error("You must be logged in to upvote a post");
+      }
     }
   };
 
