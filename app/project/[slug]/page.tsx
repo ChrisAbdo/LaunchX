@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge";
 
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import CommentForm from "@/components/upload/comment";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth/auth-options";
 
 export async function generateMetadata({
   params,
@@ -27,6 +29,7 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
+  const session = await getServerSession(authOptions);
   const project = await prisma.post.findUnique({
     where: {
       id: params.slug,
@@ -84,9 +87,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
         <Separator className="mt-8" />
         <div className="mt-10 flex items-center space-x-2">
-          {/* <p className="text-muted-foreground">
-            Framework: {project?.framework}
-          </p> */}
           <Button asChild>
             {/* @ts-ignore */}
             <Link href={project?.githubUrl} target="_blank">
@@ -105,33 +105,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
         <Separator className="mt-8" />
         <h1 className="text-xl font-light mt-4">Comments</h1>
-        {/* COMMENT FORM */}
-        {/* <form
-          //   action={addComment}
-          action={async (formData: FormData) => {
-            const result = await addComment(formData);
-            if (result?.error) {
-              toast.error("Something went wrong. Please try again.");
-            } else {
-              toast.success("Comment added successfully!");
-            }
-          }}
-          className="flex flex-col items-end"
-        >
-          <Textarea
-            id="body"
-            name="body"
-            className="mt-2 w-full"
-            placeholder="Leave a comment..."
-          />
-          <input type="hidden" name="postId" value={project?.id} />
-          <Button className="mt-2" variant="outline" type="submit">
-            Submit
-          </Button>
-        </form> */}
-        <CommentForm project={project} />
 
-        {/* COMMENTS */}
+        <CommentForm project={project} session={session} />
+
         {comments.map((comment) => (
           <>
             <div

@@ -6,10 +6,15 @@ import { toast } from "sonner";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 
-export default function CommentForm({ project }: { project: any }) {
+export default function CommentForm({
+  project,
+  session,
+}: {
+  project: any;
+  session: any;
+}) {
   return (
     <form
-      //   action={addComment}
       action={async (formData: FormData) => {
         const result = await addComment(formData);
         if (result?.error) {
@@ -27,7 +32,12 @@ export default function CommentForm({ project }: { project: any }) {
         placeholder="Leave a comment..."
       />
       <input type="hidden" name="postId" value={project?.id} />
-      <Button className="mt-2" variant="secondary" type="submit">
+      <Button
+        className="mt-2"
+        variant="secondary"
+        type="submit"
+        disabled={!session}
+      >
         Submit
       </Button>
     </form>
