@@ -80,7 +80,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
               src={project?.coverImg || ""}
               alt="Project cover image"
               fill
-              className="rounded-md object-cover"
+              className="rounded-md object-cover border"
             />
           </AspectRatio>
         </figure>
