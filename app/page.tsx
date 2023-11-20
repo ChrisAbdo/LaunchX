@@ -126,7 +126,7 @@ export default async function Page({
                 priority
               />
               <div className="flex justify-between items-center mt-2">
-                <h3 className="font-light text-md">{post.title}</h3>
+                <h2 className="font-light text-md">{post.title}</h2>
                 <Link
                   href={`/profile/${post.author.id}`}
                   className="hover:underline font-extralight text-sm text-muted-foreground"

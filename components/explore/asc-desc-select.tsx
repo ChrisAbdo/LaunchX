@@ -41,6 +41,7 @@ export default function UpvoteDirectionSelector() {
     >
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Sort by" />
+        <span className="sr-only">Sort by</span>
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="default">Default</SelectItem>
