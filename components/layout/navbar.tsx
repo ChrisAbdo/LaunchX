@@ -37,7 +37,7 @@ export default function MainNav() {
             <Link
               href="/upload"
               className={cn(
-                "transition-colors hover:text-foreground/80 text-sm font-medium",
+                "transition-colors hover:text-foreground/80 text-sm font-light",
                 pathname === "/upload"
                   ? "text-foreground"
                   : "text-foreground/60"
@@ -48,7 +48,7 @@ export default function MainNav() {
             <Link
               href="/about"
               className={cn(
-                "transition-colors hover:text-foreground/80 text-sm font-medium",
+                "transition-colors hover:text-foreground/80 text-sm font-light",
                 pathname?.startsWith("/about")
                   ? "text-foreground"
                   : "text-foreground/60"

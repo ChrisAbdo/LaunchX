@@ -27,7 +27,7 @@ export default function ProfileDropdown() {
             width={48}
           />
 
-          <span className="ml-2">{session?.user.name}</span>
+          <span className="ml-2 font-light">{session?.user.name}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>

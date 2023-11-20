@@ -11,6 +11,21 @@ import { Badge } from "@/components/ui/badge";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import CommentForm from "@/components/upload/comment";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const project = await prisma.post.findUnique({
+    where: {
+      id: params.slug,
+    },
+  });
+  return {
+    title: project?.title,
+  };
+}
+
 export default async function Page({ params }: { params: { slug: string } }) {
   const project = await prisma.post.findUnique({
     where: {
