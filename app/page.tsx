@@ -122,7 +122,6 @@ export default async function Page({
                 width="400"
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mPsqAcAAZUBCZuIJhEAAAAASUVORK5CYII="
-                loading="lazy"
                 priority
               />
               <div className="flex justify-between items-center mt-2">
