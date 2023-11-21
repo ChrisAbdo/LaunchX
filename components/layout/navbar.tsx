@@ -11,7 +11,6 @@ import { usePathname } from "next/navigation";
 
 import { HamburgerMenuIcon, RocketIcon } from "@radix-ui/react-icons";
 import ProfileDropdown from "./profile-dropdown";
-import { ModeToggle } from "./mode-toggle";
 import { Badge } from "../ui/badge";
 
 export default function MainNav() {
@@ -78,8 +77,6 @@ export default function MainNav() {
               Log in
             </Button>
           )}
-
-          <ModeToggle />
         </div>
       </nav>
     </header>

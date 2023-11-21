@@ -21,6 +21,15 @@ export default function Form() {
   const [selected, setSelected] = React.useState("");
   const [coverImg, setCoverImg] = React.useState("");
 
+  const [uploadInfo, setUploadInfo] = React.useState({
+    title: "",
+    description: "",
+    githubUrl: "",
+    siteUrl: "",
+    framework: "",
+    coverImg: "",
+  });
+
   return (
     <form
       action={async (formData: FormData) => {
@@ -52,6 +61,9 @@ export default function Form() {
                   name="title"
                   id="title"
                   placeholder="Title"
+                  onChange={(e) =>
+                    setUploadInfo({ ...uploadInfo, title: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -65,6 +77,12 @@ export default function Form() {
                   name="description"
                   id="description"
                   placeholder="Description"
+                  onChange={(e) =>
+                    setUploadInfo({
+                      ...uploadInfo,
+                      description: e.target.value,
+                    })
+                  }
                 />
               </div>
               <p className="mt-3 text-sm leading-6 text-foreground">
@@ -80,6 +98,9 @@ export default function Form() {
                   name="githubUrl"
                   id="githubUrl"
                   placeholder="ex: https://www.github.com/chrisabdo/launchx"
+                  onChange={(e) =>
+                    setUploadInfo({ ...uploadInfo, githubUrl: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -92,6 +113,9 @@ export default function Form() {
                   name="siteUrl"
                   id="siteUrl"
                   placeholder="ex: launchx.vercel.app"
+                  onChange={(e) =>
+                    setUploadInfo({ ...uploadInfo, siteUrl: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -108,6 +132,10 @@ export default function Form() {
                         setOtherSelected(value);
                       } else {
                         setSelected(value);
+                        setUploadInfo({
+                          ...uploadInfo,
+                          framework: value,
+                        });
                       }
                     }}
                   >
@@ -142,6 +170,12 @@ export default function Form() {
                     name="framework"
                     id="framework"
                     value={selected}
+                    onChange={(e) =>
+                      setUploadInfo({
+                        ...uploadInfo,
+                        framework: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -152,14 +186,19 @@ export default function Form() {
                 <Label htmlFor="coverImg">Cover Image</Label>
 
                 <BlobUploader coverImg={coverImg} setCoverImg={setCoverImg} />
-                <Input
-                  type="hidden"
-                  name="coverImg"
-                  id="coverImg"
-                  placeholder="coverImg"
-                  value={coverImg}
-                  readOnly
-                />
+                {!coverImg ? null : (
+                  <Input
+                    type=""
+                    name="coverImg"
+                    id="coverImg"
+                    placeholder="coverImg"
+                    readOnly
+                    value={coverImg}
+                    onChange={(e) =>
+                      setUploadInfo({ ...uploadInfo, coverImg: e.target.value })
+                    }
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -171,10 +210,23 @@ export default function Form() {
           variant="ghost"
           type="button"
           className="text-sm font-semibold leading-6"
+          onClick={() => {
+            window.location.reload();
+          }}
         >
           Cancel
         </Button>
-        <Button type="submit" className=" text-sm font-semibold leading-6">
+        <Button
+          type="submit"
+          className=" text-sm font-semibold leading-6"
+          disabled={
+            !uploadInfo.title ||
+            !uploadInfo.description ||
+            !uploadInfo.githubUrl ||
+            !uploadInfo.siteUrl ||
+            !uploadInfo.framework
+          }
+        >
           Upload
         </Button>
       </div>
